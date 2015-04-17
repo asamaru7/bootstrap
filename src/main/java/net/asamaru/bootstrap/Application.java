@@ -21,7 +21,7 @@ abstract public class Application extends android.app.Application {
 			ACRA.init(this); // The following line triggers the initialization of ACRA
 			Logger.init().setLogLevel(LogLevel.NONE);  // default : LogLevel.FULL
 		} else {
-			Logger.init("LOAN")               // default tag : PRETTYLOGGER or use just init()
+			Logger.init("XDEV")               // default tag : PRETTYLOGGER or use just init()
 					.setMethodCount(3)            // default 2
 					.hideThreadInfo()             // default it is shown
 					.setLogLevel(LogLevel.FULL);  // default : LogLevel.FULL

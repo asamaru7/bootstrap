@@ -1,4 +1,4 @@
 <resources>
     <!-- 공통 -->
-    <color name="b9StatusBar">#cccccccc</color>
+    <color name="StatusBar">#cccccccc</color>
 </resources>
