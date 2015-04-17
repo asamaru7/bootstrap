@@ -21,4 +21,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
+    // Logger : https://github.com/orhanobut/logger
+    compile 'com.orhanobut:logger:1.3'
 }
+
+// --------------------------------------------------------
+// androidannotation
+// --------------------------------------------------------
+buildscript {
+    repositories { mavenCentral() }
+    dependencies { classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4' }
+}
+apply from: './androidannotation.gradle'
+// --------------------------------------------------------
