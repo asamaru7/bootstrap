@@ -22,10 +22,6 @@ import net.asamaru.bootstrap.lib.JavaScriptInterface;
 import net.asamaru.bootstrap.ui.web.AdvancedWebView;
 
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentArg;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 
 @EFragment
@@ -110,6 +106,10 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 		});
 
 		jsInterface = getJavaScriptInterface();
+
+		// webview scroll bug 개선
+		// WebView adjustResize windowSoftInputMode breaks when activity is fullscreen
+		// AndroidBug5497Workaround.assistActivity(this);
 
 		return webView;
 	}
