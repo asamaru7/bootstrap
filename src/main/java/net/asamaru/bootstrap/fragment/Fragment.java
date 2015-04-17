@@ -6,7 +6,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 
 @EFragment
-public class Fragment extends android.support.v4.app.Fragment {
+public class Fragment extends android.app.Fragment {
 	@Bean
 	protected Advisor advisor;
 

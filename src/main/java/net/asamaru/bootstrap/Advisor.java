@@ -75,6 +75,10 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 		return mApp.getApplicationContext();
 	}
 
+	static public String getJsScheme() {
+		return "app://";
+	}
+
 	// ---------------------------------------------------------------
 
 	/**

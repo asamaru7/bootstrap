@@ -30,7 +30,7 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.AttributeSet;
 import android.util.Base64;
 import android.view.InputEvent;
