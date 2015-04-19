@@ -35,8 +35,8 @@ abstract public class ActionBarActivity extends android.support.v7.app.ActionBar
 	protected SystemBarTintManager systemBarManager;
 	protected ProgressBar mLoadingProgressBar;
 
-	protected boolean useActionBarOverlay;
 	protected boolean useStatusBarOverlay = false;
+	protected boolean useActionBarOverlay = false;
 	protected boolean useNavigationBarOverlay = false;
 
 	@Override

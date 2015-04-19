@@ -4,14 +4,9 @@ import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
 import org.acra.ACRA;
-import org.acra.annotation.ReportsCrashes;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
-@ReportsCrashes(
-		formKey = "", // This is required for backward compatibility but not used
-		formUri = "http://dev.coregisul.kr/rpc/tracker4app.php?trackerId=AppCrashB9"
-)
 @EBean
 abstract public class Application extends android.app.Application {
 	@Bean

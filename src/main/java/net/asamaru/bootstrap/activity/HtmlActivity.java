@@ -26,14 +26,10 @@ abstract public class HtmlActivity extends ActionBarActivity {
 			String target = getUrl();
 			WebViewFragment fragment;
 			if (target != null) {
-				fragment = WebViewUrlFragment_.builder()
-						.url(target)
-						.build();
+				fragment = WebViewUrlFragment_.builder().url(target).build();
 			} else {
 				target = getAssetPath();
-				fragment = WebViewAssetFragment_.builder()
-						.path(target)
-						.build();
+				fragment = WebViewAssetFragment_.builder().path(target).build();
 			}
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			ft.add(android.R.id.content, fragment).commit();
