@@ -19,6 +19,8 @@ import android.widget.Toast;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @EBean(scope = EBean.Scope.Singleton)
 public class Advisor implements Application.ActivityLifecycleCallbacks {
 	static public String deviceUuid;
@@ -28,6 +30,7 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 	static private android.app.Activity mActiveActivity;
 	static private boolean mDebugable;
 	static private float density;
+	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
 
 	public void setApp(Application app) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -38,7 +41,10 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 		mApp = app;
 		mApp.registerActivityLifecycleCallbacks(this);
 
+		// https://code.google.com/p/android/issues/detail?id=52962
+		// library project의 경우 DEBUG가 항상 false로 나오는 문제가 있음
 		mDebugable = BuildConfig.DEBUG;
+//		mDebugable = (0 != (app.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
 		density = app.getResources().getDisplayMetrics().density;
 	}
 
@@ -127,6 +133,18 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 
 	static public void startActivity(Intent intent) {
 		mActiveActivity.startActivity(intent);
+	}
+
+	public static int generateViewId() {
+		for (; ; ) {
+			final int result = sNextGeneratedId.get();
+			// aapt-generated IDs have the high byte nonzero; clamp to the range under that.
+			int newValue = result + 1;
+			if (newValue > 0x00FFFFFF) newValue = 1; // Roll over to 1, not 0.
+			if (sNextGeneratedId.compareAndSet(result, newValue)) {
+				return result;
+			}
+		}
 	}
 
 	// ---------------------------------------------------------------

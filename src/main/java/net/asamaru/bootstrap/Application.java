@@ -18,6 +18,7 @@ abstract public class Application extends android.app.Application {
 
 		//if (2 != (this.getApplicationContext().getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {
 		if (!BuildConfig.DEBUG) {
+//		if (!Advisor.isDebugable()) {
 			ACRA.init(this); // The following line triggers the initialization of ACRA
 			Logger.init().setLogLevel(LogLevel.NONE);  // default : LogLevel.FULL
 		} else {

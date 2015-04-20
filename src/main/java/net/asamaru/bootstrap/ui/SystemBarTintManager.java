@@ -71,7 +71,6 @@ public class SystemBarTintManager {
 
 		Window win = activity.getWindow();
 		ViewGroup decorViewGroup = (ViewGroup) win.getDecorView();
-
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			// check theme attrs
 			int[] attrs = {android.R.attr.windowTranslucentStatus,
@@ -354,7 +353,11 @@ public class SystemBarTintManager {
 		private final boolean mInPortrait;
 		private final float mSmallestWidthDp;
 
+		private boolean useActionBarOverlay = false;
+
 		private SystemBarConfig(Activity activity, boolean translucentStatusBar, boolean traslucentNavBar) {
+			useActionBarOverlay = activity.getWindow().hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+
 			Resources res = activity.getResources();
 			float density = res.getDisplayMetrics().density;
 			mInPortrait = (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
@@ -515,6 +518,10 @@ public class SystemBarTintManager {
 		 */
 		public int getPixelInsetTop(boolean withActionBar) {
 			return (mTranslucentStatusBar ? mStatusBarHeight : 0) + (withActionBar ? mActionBarHeight : 0);
+		}
+
+		public int getPixelInsetTop() {
+			return getPixelInsetTop(useActionBarOverlay);
 		}
 
 		public int getPixelInsetTopWithStatusBar(boolean withActionBar) {

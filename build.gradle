@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
+//    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 14
@@ -34,3 +35,22 @@ buildscript {
 }
 apply from: './androidannotation.gradle'
 // --------------------------------------------------------
+
+//// Trigger BuildConfig creation
+//project.afterEvaluate {
+//    tasks.all { task ->
+//        if (task.name =~ /generate.*BuildConfig/) {
+//            task.dependsOn(propagateBuildConfig)
+//        }
+//    }
+//}
+//
+//task propagateBuildConfig << {
+//    project.android.buildTypes.all { type ->
+//        type.buildConfigField "boolean", "RELEASE", isVariantRelease().toString()
+//    }
+//}
+//
+//def isVariantRelease() {
+//    return rootProject.ext.variantRelease
+//}
