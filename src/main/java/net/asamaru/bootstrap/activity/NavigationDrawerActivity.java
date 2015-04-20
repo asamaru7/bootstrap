@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -75,7 +74,6 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 		drawerList = new ListView(this);
 		DrawerLayout.LayoutParams lp = new DrawerLayout.LayoutParams(Advisor.dpToPixel(240), DrawerLayout.LayoutParams.MATCH_PARENT);
 		lp.gravity = Gravity.START;
-		Log.e("SSS", systemBarManager.getConfig().getPixelInsetTop() + "");
 		lp.setMargins(0, systemBarManager.getConfig().getPixelInsetTop(), 0, 0);
 		drawerList.setBackgroundColor(getResources().getColor(android.R.color.white));
 		drawerList.setLayoutParams(lp);
@@ -112,7 +110,7 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 		}
 	}
 
-//	@SuppressWarnings("unused")
+	//	@SuppressWarnings("unused")
 	public void replaceFragment(Class<?> fragmentClass) {
 		if (fragmentClass != null) {
 			try {
