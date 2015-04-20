@@ -7,6 +7,7 @@ import org.acra.ACRA;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+//@EApplication	// abstract application을 현재는 지원하지 않음 3.2, 이후 버전에서 테스트가 필요함
 @EBean
 abstract public class Application extends android.app.Application {
 	@Bean
