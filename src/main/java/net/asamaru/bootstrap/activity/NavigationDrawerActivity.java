@@ -80,7 +80,7 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 		drawerList.setBackgroundColor(getResources().getColor(android.R.color.white));
 		drawerList.setLayoutParams(lp);
 
-		drawerList.setAdapter(getListAdapter());
+		drawerList.setAdapter(getListAdapter(drawerList));
 		drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,10 +90,9 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 			}
 		});
 		drawerLayout.addView(drawerList);
-//		Logger.d("SSS");
 	}
 
-	abstract protected ListAdapter getListAdapter();
+	abstract protected ListAdapter getListAdapter(ListView listView);
 
 	abstract protected boolean onDrawerItemClick(AdapterView<?> parent, View view, int position, long id);
 
@@ -113,6 +112,7 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 		}
 	}
 
+//	@SuppressWarnings("unused")
 	public void replaceFragment(Class<?> fragmentClass) {
 		if (fragmentClass != null) {
 			try {
