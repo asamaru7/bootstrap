@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.CookieSyncManager;
 import android.widget.ProgressBar;
@@ -41,10 +43,18 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 		mApp = app;
 		mApp.registerActivityLifecycleCallbacks(this);
 
+		// mDebugable = (0 != (app.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
 		// https://code.google.com/p/android/issues/detail?id=52962
 		// library project의 경우 DEBUG가 항상 false로 나오는 문제가 있음
 		mDebugable = BuildConfig.DEBUG;
-//		mDebugable = (0 != (app.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
+		try {
+			PackageManager pm = mApp.getPackageManager();
+			PackageInfo pi = pm.getPackageInfo(mApp.getPackageName(), 0);
+			mDebugable = ((pi.applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		Log.e("BOOTSTRAP", "debugable : " + mDebugable);
 		density = app.getResources().getDisplayMetrics().density;
 	}
 
