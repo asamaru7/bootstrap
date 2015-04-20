@@ -15,7 +15,9 @@ import org.androidannotations.annotations.FragmentArg;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @EFragment
 public class WebViewAssetFragment extends WebViewFragment {
@@ -37,13 +39,49 @@ public class WebViewAssetFragment extends WebViewFragment {
 
 	@FragmentArg
 	protected String path;
+	protected List<String> js = new ArrayList<>();
+	protected List<String> css = new ArrayList<>();
+
+	public void addJs(String path) {
+		js.add(path);
+	}
+
+	public void addJs(String[] path) {
+		if ((path != null) && (path.length > 0)) {
+			js.addAll(new ArrayList<>(Arrays.asList(path)));
+		}
+	}
+
+	public void addCss(String path) {
+		css.add(path);
+	}
+
+	public void addCss(String[] path) {
+		if ((path != null) && (path.length > 0)) {
+			css.addAll(new ArrayList<>(Arrays.asList(path)));
+		}
+	}
 
 	protected String getHeader() {
-		return header;
+		if (css.size() <= 0) {
+			return header;
+		}
+		String headerHtml = header;
+		for (String cssPath : css) {
+			headerHtml += "<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"" + cssPath + "\" />\n";
+		}
+		return headerHtml;
 	}
 
 	protected String getFooter() {
-		return footer;
+		if (js.size() <= 0) {
+			return footer;
+		}
+		String footerHtml = footer;
+		for (String jsPath : js) {
+			footerHtml += "<script src=\"" + jsPath + "\"></script>\n";
+		}
+		return footerHtml;
 	}
 
 	@Override

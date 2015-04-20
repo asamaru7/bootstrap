@@ -1,1 +1,29 @@
-body { background:red; }
+:focus, :active { -webkit-tap-highlight-color:rgba(255, 255, 255, 0); -webkit-tap-highlight-color:transparent; outline:none; }
+/* chrome <= 28 hack http://browserhacks.com/ */
+/*	body {.selector { [;property: value;]; } */
+/*	body {.selector { (;property: value;); } */
+html.STOCK_BROWSER input[type=text],
+html.STOCK_BROWSER input[type=password],
+html.STOCK_BROWSER input[type=email],
+html.STOCK_BROWSER input[type=url],
+html.STOCK_BROWSER input[type=time],
+html.STOCK_BROWSER input[type=date],
+html.STOCK_BROWSER input[type=datetime-local],
+html.STOCK_BROWSER input[type=tel],
+html.STOCK_BROWSER input[type=number],
+html.STOCK_BROWSER input[type=search],
+html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -webkit-transform:translate3d(0, 10000px, 0); ];
+	/*
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	-webkit-tap-highlight-color: transparent;
+	outline-style:none !important;
+	-webkit-user-modify: read-write-plaintext-only;
+	user-modify: read-write-plaintext-only;
+	ime-mode:active;
+	*/
+	/*
+	 android:imeOptions="actionNone"
+	 android:imeOptions="actionSend|flagNoEnterAction"
+	 android:imeOptions="actionGo|flagNoEnterAction"
+	*/
+}
