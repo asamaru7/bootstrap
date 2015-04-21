@@ -98,8 +98,7 @@ public class WebViewAssetFragment extends WebViewFragment {
 	}
 
 	private void loadHtml() {
-		String pathInAssets = "file:///android_asset/html/" + path;
-		Logger.d(pathInAssets);
+//		Logger.d("file:///android_asset/html/" + path);
 		try {
 			if (Arrays.asList(getResources().getAssets().list("html")).contains(path)) {
 //				webView.loadUrl(pathInAssets);
@@ -109,6 +108,7 @@ public class WebViewAssetFragment extends WebViewFragment {
 				html += getFooter();
 				html += "</body></html>";
 				webView.loadDataWithBaseURL("file:///android_asset/html/", html, "text/html", "UTF-8", null);
+				Logger.d("Load html : " + html);
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
