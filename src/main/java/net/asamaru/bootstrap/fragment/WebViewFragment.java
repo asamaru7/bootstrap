@@ -1,5 +1,6 @@
 package net.asamaru.bootstrap.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
@@ -23,6 +24,8 @@ import net.asamaru.bootstrap.ui.web.AdvancedWebView;
 
 import org.androidannotations.annotations.EFragment;
 
+import java.util.Locale;
+
 
 @EFragment
 abstract public class WebViewFragment extends Fragment implements AdvancedWebView.Listener {
@@ -36,6 +39,7 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 //		super.onAttach(activity);
 //	}
 
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		webView = new AdvancedWebView(this.getActivity());
@@ -61,7 +65,7 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
 			webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
 		}
-		webSettings.setUserAgentString(webSettings.getUserAgentString() + ";B9App " + Advisor.getAppVersion() + " (android)");    // User Agent 설정
+		webSettings.setUserAgentString(webSettings.getUserAgentString() + ";" + Advisor.getUserAgentName() + " " + Advisor.getAppVersion() + " (android)");    // User Agent 설정
 		if (Advisor.isDebugable()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 				WebView.setWebContentsDebuggingEnabled(true);
@@ -86,6 +90,9 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 		webView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+				if (onClientJsAlert(view, url, message, result)) {
+					return true;
+				}
 				new AlertDialog.Builder(view.getContext())
 						.setTitle("알림")
 						.setMessage(message)
@@ -99,6 +106,12 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 						.create()
 						.show();
 				return true;
+			}
+
+			@Override
+			public void onReceivedTitle(WebView view, String title) {
+				super.onReceivedTitle(view, title);
+				onClientReceivedTitle(view, title);
 			}
 
 //			@Override
@@ -120,11 +133,9 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 	}
 
 	// interface AdvancedWebView.Listener
-	public void onPageStarted(String url, Bitmap favicon) {
-	}
+	public void onPageStarted(String url, Bitmap favicon) {}
 
-	public void onPageFinished(String url) {
-	}
+	public void onPageFinished(String url) {}
 
 	public void onPageError(int errorCode, String description, String failingUrl) {
 		Logger.e("code : " + errorCode + " desc : " + description + " fail : " + failingUrl);
@@ -136,10 +147,36 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 
 	abstract public void reloadHtml();
 
+
+	// -----------------------------------------------------------------------------
+	public boolean onClientJsAlert(WebView view, String url, String message, final JsResult result) {
+		return false;
+	}
+
+	public void onClientReceivedTitle(WebView view, String title) {
+	}
+
 	// -----------------------------------------------------------------------------
 	protected JavaScriptInterface getJavaScriptInterface() {
 		return new JavaScriptInterface(this, webView);
 	}
 
 	protected void onAction(String action, String arguments) {}
+
+	// -----------------------------------------------------------------------------
+	static protected String getInjectHead() {
+//			int top = (int) systemBarManager.getConfig().getDpInsetTop(true);
+		int top = 0;
+		String marginCss = "html { padding-top:" + top + "px !important; } .appTopMargin { margin-top:" + top + "px; }";
+		String html = "var cssText = \"" + marginCss + "\";";
+		html += "var css = document.createElement(\"style\"); css.type = \"text/css\";";
+		html += "if (css.styleSheet) { css.styleSheet.cssText = cssText; } else { css.appendChild(document.createTextNode(cssText)); }";
+		html += "head.appendChild(css); css=null; head=null;";
+		html += "window.appTopMargin = " + top + ";";
+		html += "window.appLanguage = '" + Locale.getDefault().getLanguage() + "';";
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {    // stock browser
+			html += "try { document.documentElement.className += ' STOCK_BROWSER'; } catch(e) {}";    // input wrong position bug 개선을 위한 처리
+		}
+		return html;
+	}
 }

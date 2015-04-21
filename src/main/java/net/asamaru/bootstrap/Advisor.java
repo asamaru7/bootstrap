@@ -18,9 +18,12 @@ import android.webkit.CookieSyncManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.orhanobut.logger.Logger;
+
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
 
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @EBean(scope = EBean.Scope.Singleton)
@@ -62,6 +65,10 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 		return Advisor.deviceUuid;
 	}
 
+	static public boolean isKorean() {
+		return Locale.getDefault().getLanguage().equalsIgnoreCase("ko");
+	}
+
 	static public Application getApp() {
 		return mApp;
 	}
@@ -93,6 +100,10 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 
 	static public String getJsScheme() {
 		return "app://";
+	}
+
+	static public String getUserAgentName() {
+		return "ASApp";
 	}
 
 	// ---------------------------------------------------------------

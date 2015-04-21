@@ -30,12 +30,13 @@ public class WebViewAssetFragment extends WebViewFragment {
 //			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
 			"    <meta name=\"viewport\" content=\"width=320, user-scalable=no, initial-scale=1, maximum-scale=2, minimum-scale=1\">\n" +
 			"    <title></title>\n" +
+			"    <script type=\"text/javascript\">(function() { var head = document.head || document.getElementsByTagName('head')[0]; " + WebViewFragment.getInjectHead() + " })();</script>" +
 			"    <link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"res/bootstrap3/css/bootstrap.min.css\" />\n" +
 			"    <link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"res/common/base.css\" />\n" +
 			"<!--</head><body>-->";
 	final static String footer = "<script src=\"res/jquery/jquery-2.1.3.min.js\"></script>\n" +
-			"<script src=\"res/bootstrap3/js/bootstrap.min.js\"></script>\n" +
-			"<script src=\"res/common/base.js\"></script>\n" +
+			"<script type=\"text/javascript\" src=\"res/bootstrap3/js/bootstrap.min.js\"></script>\n" +
+			"<script type=\"text/javascript\" src=\"res/common/base.js\"></script>\n" +
 			"<!--</body></html>-->";
 
 	@FragmentArg
@@ -80,7 +81,7 @@ public class WebViewAssetFragment extends WebViewFragment {
 		}
 		String footerHtml = footer;
 		for (String jsPath : js) {
-			footerHtml += "<script src=\"" + jsPath + "\"></script>\n";
+			footerHtml += "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>\n";
 		}
 		return footerHtml;
 	}
