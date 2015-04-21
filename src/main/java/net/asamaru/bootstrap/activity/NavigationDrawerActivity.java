@@ -29,6 +29,7 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 	FrameLayout fragmentContainer;
 	ActionBarDrawerToggle drawerToggle;
 	ListView drawerList;
+	protected Fragment activeFragment;
 	public final static int fragmentContainerId = Advisor.generateViewId();
 
 	@Override
@@ -122,6 +123,7 @@ abstract public class NavigationDrawerActivity extends ActionBarActivity {
 	}
 
 	public void replaceFragment(Fragment fragment) {
+		activeFragment = fragment;
 		if (fragment != null) {
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			ft.replace(fragmentContainerId, fragment).commit();

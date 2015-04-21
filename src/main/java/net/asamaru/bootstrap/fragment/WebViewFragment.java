@@ -134,6 +134,8 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 
 	public void onExternalPageRequest(String url) {}
 
+	abstract public void reloadHtml();
+
 	// -----------------------------------------------------------------------------
 	protected JavaScriptInterface getJavaScriptInterface() {
 		return new JavaScriptInterface(this, webView);

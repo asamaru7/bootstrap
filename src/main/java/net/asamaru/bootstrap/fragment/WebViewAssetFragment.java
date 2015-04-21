@@ -27,7 +27,8 @@ public class WebViewAssetFragment extends WebViewFragment {
 			"    <meta charset=\"utf-8\">\n" +
 			"    <meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\"/>\n" +
 			"    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+//			"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+			"    <meta name=\"viewport\" content=\"width=320, user-scalable=no, initial-scale=1, maximum-scale=2, minimum-scale=1\">\n" +
 			"    <title></title>\n" +
 			"    <link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"res/bootstrap3/css/bootstrap.min.css\" />\n" +
 			"    <link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"res/common/base.css\" />\n" +
@@ -91,6 +92,12 @@ public class WebViewAssetFragment extends WebViewFragment {
 		WebSettings webSettings = webView.getSettings();
 		webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
+		loadHtml();
+
+		return webView;
+	}
+
+	private void loadHtml() {
 		String pathInAssets = "file:///android_asset/html/" + path;
 		Logger.d(pathInAssets);
 		try {
@@ -107,7 +114,6 @@ public class WebViewAssetFragment extends WebViewFragment {
 			ex.printStackTrace();
 			Advisor.showToast("파일을 찾을 수 없습니다.");
 		}
-		return webView;
 	}
 
 	private String readText(String file) throws IOException {
@@ -119,5 +125,9 @@ public class WebViewAssetFragment extends WebViewFragment {
 		is.close();
 
 		return new String(buffer);
+	}
+
+	public void reloadHtml() {
+		loadHtml();
 	}
 }

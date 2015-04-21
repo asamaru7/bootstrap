@@ -19,4 +19,8 @@ public class WebViewUrlFragment extends WebViewFragment {
 		webView.loadUrl(url);
 		return webView;
 	}
+
+	public void reloadHtml() {
+		webView.reload();
+	}
 }
