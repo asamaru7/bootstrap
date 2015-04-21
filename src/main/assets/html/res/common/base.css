@@ -27,3 +27,8 @@ html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -w
 	 android:imeOptions="actionGo|flagNoEnterAction"
 	*/
 }
+
+/* bootstrap 초기화 */
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+  outline: none;
+}
