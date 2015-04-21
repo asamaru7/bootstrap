@@ -73,7 +73,12 @@ dependencies {
 
 ```java
 import org.androidannotations.annotations.EApplication;
+import org.acra.annotation.ReportsCrashes;
 
+@ReportsCrashes(
+	formKey = "", // This is required for backward compatibility but not used
+	formUri = "tracker url"
+)
 @EApplication
 public class Application extends net.asamaru.bootstrap.Application {
 }
