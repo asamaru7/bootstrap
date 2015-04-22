@@ -5,6 +5,22 @@
 		'app': {
 			'interface': window.b9js,
 			'util': {
+				'focus': function($el) {
+					var el = $el.get(0);
+					if (el) {
+						el.focus();
+						var html5types = ['password', 'email', 'url', 'tel', 'number', 'range', 'time'];
+						if (html5types.indexOf(el.type) == -1 && el.setSelectionRange) {
+							el.setSelectionRange(0, 0);
+						} else if (el.createTextRange) {
+							var range = el.createTextRange();
+							range.collapse(true);
+							range.moveEnd('character', 0);
+							range.moveStart('character', 0);
+							range.select();
+						}
+					}
+				},
 				splitArray: function (val) {
 					var vals = $.trim(val);
 					return (vals == '') ? [] : vals.split(',');
@@ -65,5 +81,7 @@
 	});
 
 	$(function () {
+		// android touch bug fix : (position:fixed; click bug)
+		$('body').bind('touchstart', function() { return true; });
 	});
 })();

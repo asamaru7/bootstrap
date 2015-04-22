@@ -5,6 +5,8 @@
 /* stock browser에서 input 영역이 잘못 표시되는 문제를 수정
 - 부모중에 overflow:hidden이 있을 경우(옮겨진 영역이 화면에 보이지 않을 경우) type=number 등이 적용되지 않는 문제가 있음
 - 현재는 위의 문제로 인해 inject code에서 제어함
+- -webkit-user-modify:read-write-plaintext-only; -webkit-tap-highlight-color: rgba(0,0,0,0); outline-style: none; : 한글 입력에 문제 발생
+
 html.STOCK_BROWSER input[type=text],
 html.STOCK_BROWSER input[type=password],
 html.STOCK_BROWSER input[type=email],
@@ -18,11 +20,18 @@ html.STOCK_BROWSER input[type=search],
 html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -webkit-transform:translate3d(0, 10000px, 0); ]; }
 */
 
-/* bootstrap 초기화 */
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
-  outline: none;
-}
-
-/*http://stackoverflow.com/questions/20766418/when-input-type-number-android-browsers-render-the-input-box-smaller*/
+/*
+ - http://stackoverflow.com/questions/20766418/when-input-type-number-android-browsers-render-the-input-box-smaller
+ - input number type의 크기가 작게 출력되는 버그 수정
+*/
 input[type=number]::-webkit-outer-spin-button { margin: 0; }
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+
+/* bootstrap 초기화 */
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus { outline: none; }
+
+/* alertify alertify-logs-hidden not called 버그 수정 */
+body .alertify-logs { pointer-events: none; }
+body .alertify-logs > .alertify-log { pointer-events:auto; }
+body .alertify-logs > .alertify-log.alertify-log-hide { pointer-events:none; }

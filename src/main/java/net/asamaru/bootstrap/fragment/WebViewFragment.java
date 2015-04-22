@@ -177,7 +177,7 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 			String marginCss = "";
 			marginCss += "html { padding-top:" + top + "px !important; } .appTopMargin { margin-top:" + top + "px; }";
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-//		webView.setPadding(0, systemBarManager.getConfig().getPixelInsetTop(true), 0, 0); 여기서 사용되는 높이에 대한 보정
+				// webView.setPadding(0, systemBarManager.getConfig().getPixelInsetTop(true), 0, 0); 여기서 사용되는 높이에 대한 보정
 				marginCss += "input[type=text],"
 						+ "input[type=password],"
 						+ "input[type=email],"
