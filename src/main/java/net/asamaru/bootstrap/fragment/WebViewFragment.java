@@ -120,6 +120,11 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 
 		jsInterface = getJavaScriptInterface();
 
+		webView.setClipChildren(false);
+		webView.setClipToPadding(false);
+//		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {	// stock browser에서 input에 대한 입력 영역이 아래로 밀림
+//		webView.setPadding(0, systemBarManager.getConfig().getPixelInsetTop(true), 0, 0);
+
 		// webview scroll bug 개선
 		// WebView adjustResize windowSoftInputMode breaks when activity is fullscreen
 		// AndroidBug5497Workaround.assistActivity(this);
@@ -167,12 +172,30 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 	static protected String getInjectHead() {
 //			int top = (int) systemBarManager.getConfig().getDpInsetTop(true);
 		int top = 0;
-		String marginCss = "html { padding-top:" + top + "px !important; } .appTopMargin { margin-top:" + top + "px; }";
-		String html = "var cssText = \"" + marginCss + "\";";
-		html += "var css = document.createElement(\"style\"); css.type = \"text/css\";";
-		html += "if (css.styleSheet) { css.styleSheet.cssText = cssText; } else { css.appendChild(document.createTextNode(cssText)); }";
-		html += "head.appendChild(css); css=null; head=null;";
-		html += "window.appTopMargin = " + top + ";";
+		String html = "";
+		if (top > 0) {
+			String marginCss = "";
+			marginCss += "html { padding-top:" + top + "px !important; } .appTopMargin { margin-top:" + top + "px; }";
+			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//		webView.setPadding(0, systemBarManager.getConfig().getPixelInsetTop(true), 0, 0); 여기서 사용되는 높이에 대한 보정
+				marginCss += "input[type=text],"
+						+ "input[type=password],"
+						+ "input[type=email],"
+						+ "input[type=url],"
+						+ "input[type=time],"
+						+ "input[type=date],"
+						+ "input[type=datetime-local],"
+						+ "input[type=tel],"
+						+ "input[type=number],"
+						+ "input[type=search],"
+						+ "textarea { [; position:relative; ]; [; top:-" + top + "px; ]; [; -webkit-transform:translate3d(0, " + top + "px, 0); ];";
+			}
+			html += "var cssText = \"" + marginCss + "\";";
+			html += "var css = document.createElement(\"style\"); css.type = \"text/css\";";
+			html += "if (css.styleSheet) { css.styleSheet.cssText = cssText; } else { css.appendChild(document.createTextNode(cssText)); }";
+			html += "head.appendChild(css); css=null; head=null;";
+			html += "window.appTopMargin = " + top + ";";
+		}
 		html += "window.appLanguage = '" + Locale.getDefault().getLanguage() + "';";
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {    // stock browser
 			html += "try { document.documentElement.className += ' STOCK_BROWSER'; } catch(e) {}";    // input wrong position bug 개선을 위한 처리

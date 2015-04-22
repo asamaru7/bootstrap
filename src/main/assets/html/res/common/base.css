@@ -1,7 +1,10 @@
 :focus, :active { -webkit-tap-highlight-color:rgba(255, 255, 255, 0); -webkit-tap-highlight-color:transparent; outline:none; }
-/* chrome <= 28 hack http://browserhacks.com/ */
-/*	body {.selector { [;property: value;]; } */
-/*	body {.selector { (;property: value;); } */
+/* chrome <= 28 hack http://browserhacks.com/
+	body {.selector { [;property: value;]; }
+	body {.selector { (;property: value;); } */
+/* stock browser에서 input 영역이 잘못 표시되는 문제를 수정
+- 부모중에 overflow:hidden이 있을 경우(옮겨진 영역이 화면에 보이지 않을 경우) type=number 등이 적용되지 않는 문제가 있음
+- 현재는 위의 문제로 인해 inject code에서 제어함
 html.STOCK_BROWSER input[type=text],
 html.STOCK_BROWSER input[type=password],
 html.STOCK_BROWSER input[type=email],
@@ -12,23 +15,14 @@ html.STOCK_BROWSER input[type=datetime-local],
 html.STOCK_BROWSER input[type=tel],
 html.STOCK_BROWSER input[type=number],
 html.STOCK_BROWSER input[type=search],
-html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -webkit-transform:translate3d(0, 10000px, 0); ];
-	/*
-	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-	-webkit-tap-highlight-color: transparent;
-	outline-style:none !important;
-	-webkit-user-modify: read-write-plaintext-only;
-	user-modify: read-write-plaintext-only;
-	ime-mode:active;
-	*/
-	/*
-	 android:imeOptions="actionNone"
-	 android:imeOptions="actionSend|flagNoEnterAction"
-	 android:imeOptions="actionGo|flagNoEnterAction"
-	*/
-}
+html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -webkit-transform:translate3d(0, 10000px, 0); ]; }
+*/
 
 /* bootstrap 초기화 */
 .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
   outline: none;
 }
+
+/*http://stackoverflow.com/questions/20766418/when-input-type-number-android-browsers-render-the-input-box-smaller*/
+input[type=number]::-webkit-outer-spin-button { margin: 0; }
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
