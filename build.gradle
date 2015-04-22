@@ -14,6 +14,7 @@ android {
     }
     buildTypes {
         release {
+            // lib에 대한 minifyEnabled는 false 사용 : 부모 프로젝트 proguard에 의해 적용되는 듯함
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
