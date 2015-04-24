@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.orhanobut.logger.Logger;
+import com.squareup.otto.Bus;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.UiThread;
@@ -36,11 +37,13 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 	static private boolean mDebugable;
 	static private float density;
 	private static final AtomicInteger sNextGeneratedId = new AtomicInteger(1);
+	static private Bus mBus;
 
 	public void setApp(Application app) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 			CookieSyncManager.createInstance(app.getApplicationContext());
 		}
+		mBus = new Bus();
 
 		Advisor.deviceUuid = Settings.Secure.getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);
 		mApp = app;
@@ -104,6 +107,10 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 
 	static public String getUserAgentName() {
 		return "ASApp";
+	}
+
+	static public Bus getEventBus() {
+		return mBus;
 	}
 
 	// ---------------------------------------------------------------

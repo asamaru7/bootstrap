@@ -98,7 +98,7 @@ public class WebViewAssetFragment extends WebViewFragment {
 		return webView;
 	}
 
-	private void loadHtml() {
+	protected void loadHtml() {
 //		Logger.d("file:///android_asset/html/" + path);
 		try {
 			if (Arrays.asList(getResources().getAssets().list("html")).contains(path)) {

@@ -26,6 +26,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     // Logger : https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.3'
+    // android-iconify : http://joanzapata.com/android-iconify/
+    compile 'com.joanzapata.android:android-iconify:1.0.8'
+    // otto(eventbus) : http://square.github.io/otto/, 한글 : https://medium.com/@LIP/otto-186e676cf1b
+    compile 'com.squareup:otto:1.3.6'
 }
 
 // --------------------------------------------------------
