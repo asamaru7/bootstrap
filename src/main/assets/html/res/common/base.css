@@ -20,6 +20,8 @@ html.STOCK_BROWSER input[type=search],
 html.STOCK_BROWSER textarea { [; position:relative; ]; [; top:-10000px; ]; [; -webkit-transform:translate3d(0, 10000px, 0); ]; }
 */
 
+html { -ms-touch-action:manipulation; touch-action:manipulation; /* 터치 반응속도 높이기 */ }
+
 /*
  - http://stackoverflow.com/questions/20766418/when-input-type-number-android-browsers-render-the-input-box-smaller
  - input number type의 크기가 작게 출력되는 버그 수정

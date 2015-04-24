@@ -26,8 +26,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     // Logger : https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.3'
-    // Phrase : https://github.com/square/phrase
-    compile 'com.squareup.phrase:phrase:1.0.3'
 }
 
 // --------------------------------------------------------

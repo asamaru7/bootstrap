@@ -117,14 +117,12 @@ public class WebViewAssetFragment extends WebViewFragment {
 		}
 	}
 
-	private String readText(String file) throws IOException {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	protected String readText(String file) throws IOException {
 		InputStream is = getResources().getAssets().open(file);
-
-		int size = is.available();
-		byte[] buffer = new byte[size];
+		byte[] buffer = new byte[is.available()];
 		is.read(buffer);
 		is.close();
-
 		return new String(buffer);
 	}
 
