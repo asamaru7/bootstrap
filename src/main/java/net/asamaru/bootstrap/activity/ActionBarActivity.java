@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import net.asamaru.bootstrap.Advisor;
 import net.asamaru.bootstrap.R;
@@ -38,6 +40,9 @@ abstract public class ActionBarActivity extends android.support.v7.app.ActionBar
 	protected boolean useStatusBarOverlay = false;
 	protected boolean useActionBarOverlay = false;
 	protected boolean useNavigationBarOverlay = false;
+
+	private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+	private boolean mBackPressed;
 
 	@Override
 	protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -180,7 +185,18 @@ abstract public class ActionBarActivity extends android.support.v7.app.ActionBar
 					.setNegativeButton("No", null)
 					.show();
 		} else {
-			finish();
+			if (mBackPressed) {
+				finish();
+				return;
+			}
+			mBackPressed = true;
+			Toast.makeText(this, "'뒤로'버튼 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show();
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mBackPressed = false;
+				}
+			}, 2000);
 		}
 	}
 }
