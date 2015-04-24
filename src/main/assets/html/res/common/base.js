@@ -3,7 +3,7 @@
 
 	$.extend(true, $, {
 		'app': {
-			'interface': window.b9js,
+			'interface': window.ASInterface,
 			'util': {
 				'focus': function($el) {
 					var el = $el.get(0);

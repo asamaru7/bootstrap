@@ -39,7 +39,7 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 //		super.onAttach(activity);
 //	}
 
-	@SuppressLint("SetJavaScriptEnabled")
+	@SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		webView = new AdvancedWebView(this.getActivity());
@@ -119,6 +119,7 @@ abstract public class WebViewFragment extends Fragment implements AdvancedWebVie
 		});
 
 		jsInterface = getJavaScriptInterface();
+		webView.addJavascriptInterface(jsInterface, "ASInterface");
 
 		webView.setClipChildren(false);
 		webView.setClipToPadding(false);
