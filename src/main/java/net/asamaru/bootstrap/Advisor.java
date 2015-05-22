@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,6 +101,19 @@ public class Advisor implements Application.ActivityLifecycleCallbacks {
 
 	static public Context getAppContext() {
 		return mApp.getApplicationContext();
+	}
+
+	static public Resources getResources() {
+		return mApp.getResources();
+	}
+
+	@SuppressWarnings("deprecation")
+	static public Drawable getDrawable(int id) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {    // stock browser
+			return mApp.getResources().getDrawable(id);
+		} else {
+			return mApp.getResources().getDrawable(id, mApp.getTheme());
+		}
 	}
 
 	static public String getJsScheme() {
