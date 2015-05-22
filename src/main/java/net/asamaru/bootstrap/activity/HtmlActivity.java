@@ -9,7 +9,7 @@ import net.asamaru.bootstrap.fragment.WebViewUrlFragment_;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-abstract public class HtmlActivity extends ActionBarActivity {
+abstract public class HtmlActivity extends AppCompatActivity {
 	protected String getAssetPath() {
 		return null;
 	}

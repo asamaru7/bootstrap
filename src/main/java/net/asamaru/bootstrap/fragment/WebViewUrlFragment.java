@@ -1,6 +1,5 @@
 package net.asamaru.bootstrap.fragment;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.webkit.WebView;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
-
-import java.util.Locale;
 
 @EFragment
 public class WebViewUrlFragment extends WebViewFragment {

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 // LayerDrawable : http://stackoverflow.com/questions/20120725/layerdrawable-programatically
 
 @EActivity
-abstract public class ActionBarActivity extends android.support.v7.app.ActionBarActivity {
+abstract public class AppCompatActivity extends android.support.v7.app.AppCompatActivity {
 	@Bean
 	protected Advisor advisor;
 
@@ -49,8 +49,10 @@ abstract public class ActionBarActivity extends android.support.v7.app.ActionBar
 		super.onCreate(savedInstanceState);
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setHomeButtonEnabled(true);
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setHomeButtonEnabled(true);
+		}
 
 		Window win = this.getWindow();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

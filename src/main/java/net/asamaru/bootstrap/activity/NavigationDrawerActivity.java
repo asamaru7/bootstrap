@@ -24,7 +24,7 @@ import net.asamaru.bootstrap.R;
 import org.androidannotations.annotations.EActivity;
 
 @EActivity
-abstract public class NavigationDrawerActivity extends ActionBarActivity {
+abstract public class NavigationDrawerActivity extends AppCompatActivity {
 	DrawerLayout drawerLayout;
 	FrameLayout fragmentContainer;
 	ActionBarDrawerToggle drawerToggle;

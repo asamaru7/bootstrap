@@ -7,6 +7,7 @@ import org.acra.ACRA;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
+// @EApplication 가 맞으나 abstract 로 인한 오류 발생으로 일단 EBean 적용
 @EBean
 abstract public class Application extends android.app.Application {
 	@Bean

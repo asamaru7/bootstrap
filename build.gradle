@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
     // Logger : https://github.com/orhanobut/logger
     compile 'com.orhanobut:logger:1.3'
     // android-iconify : http://joanzapata.com/android-iconify/
